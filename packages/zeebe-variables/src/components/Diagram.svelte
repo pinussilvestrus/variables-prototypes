@@ -3,6 +3,8 @@
 
   import BpmnModeler from 'bpmn-js/lib/Modeler';
 
+  import ZeebeModelerExtensions from '../features';
+
   import 'bpmn-js/dist/assets/diagram-js.css';
 
   import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
@@ -13,7 +15,10 @@
   onMount(async () => {
     const modeler = new BpmnModeler({
       container: '#canvas',
-      keyboard: { bindTo: document }
+      keyboard: { bindTo: document },
+      additionalModules: [
+        ZeebeModelerExtensions
+      ]
     });
 
     const { error } = await modeler.importXML(xml);

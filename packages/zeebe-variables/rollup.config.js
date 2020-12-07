@@ -53,8 +53,6 @@ export default {
     production && terser(),
 
     string({
-
-      // Required to be specified
       include: '**/*.bpmn'
     })
   ],

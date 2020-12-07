@@ -5,7 +5,7 @@
 </script>
 
 <main>
-	<Diagram xml={startDiagram} />
+	<Diagram xml={ startDiagram } />
 </main>
 
 <style type="text/scss">
