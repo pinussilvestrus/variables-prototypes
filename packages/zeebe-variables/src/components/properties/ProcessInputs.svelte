@@ -4,7 +4,6 @@
   let show = false;
 
   $: {
-    console.log(element);
     show = is(element, 'bpmn:Process');
   }
 
