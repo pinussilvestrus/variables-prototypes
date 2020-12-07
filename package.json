@@ -9,7 +9,7 @@
     "serve": "serve packages",
     "dev": "run-s build serve",
     "bump": "lerna run --parallel bump-deps",
-    "sync:live": "git checkout live && git merge master && git push && git checkout master"
+    "sync:live": "git checkout live && git merge main && git push && git checkout main"
   },
   "repository": {
     "type": "git",
