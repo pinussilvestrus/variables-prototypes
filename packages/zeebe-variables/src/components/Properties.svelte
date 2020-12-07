@@ -1,11 +1,9 @@
 <script>
   import InputOutputVariables from './properties/InputOutputVariables.svelte';
+  import ProcessInputVariables from './properties/ProcessInputs.svelte';
+
 
   export let element = {};
-
-  $: {
-    console.log(element);
-  }
 </script>
 
 <style lang="scss">
@@ -36,6 +34,7 @@
 
     <div class="properties">
       <InputOutputVariables {element} />
+      <ProcessInputVariables {element} />
     </div>
   </div>
 </div>

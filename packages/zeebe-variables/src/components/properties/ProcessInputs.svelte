@@ -4,7 +4,8 @@
   let show = false;
 
   $: {
-    show = is(element, 'bpmn:Task');
+    console.log(element);
+    show = is(element, 'bpmn:Process');
   }
 
   export let element = {};
@@ -12,11 +13,7 @@
 
 {#if show}
   <div class="group">
-    <p class="group-header">Input Variables</p>
-    <p class="entry entry-description">No variables defined.</p>
-  </div>
-  <div class="group">
-    <p class="group-header">Output Variables</p>
+    <p class="group-header">Process Input Variables</p>
     <p class="entry entry-description">No variables defined.</p>
   </div>
 {/if}
