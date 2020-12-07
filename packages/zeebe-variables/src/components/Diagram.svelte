@@ -11,10 +11,33 @@
 
   const noop = () => {};
 
+  const bindListeners = (modeler) => {
+    const canvas = modeler.get('canvas');
+
+    modeler.on('selection.changed', function(event) {
+      const {
+        newSelection
+      } = event;
+
+      // only support single selection
+      if (newSelection.length > 1) {
+        return;
+      }
+
+      let element = newSelection[0];
+
+      // fall back to root element
+      if (!element) {
+        element = canvas.getRootElement();
+      }
+
+      onSelectionChanged(element);
+    });
+  };
 
   onMount(async () => {
     const modeler = new BpmnModeler({
-      container: '#canvas',
+      container: '.diagram-container',
       keyboard: { bindTo: document },
       additionalModules: [
         ZeebeModelerExtensions
@@ -34,21 +57,34 @@
 
     onDiagramLoaded();
 
+    bindListeners(modeler);
   });
 
   export let xml = '';
 
   export let onDiagramLoaded = noop;
+  export let onSelectionChanged = noop;
 </script>
 
-<style type="text/scss">
-  #canvas {
+<style lang="scss">
+  #diagram {
+    display: flex;
+    flex: 1;
+
+    position: relative;
+
     height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
+    min-width: 720px;
+
+    flex-direction: row;
+
+    .diagram-container {
+      flex: 1;
+      position: relative;
+    }
   }
 </style>
 
-<div id="canvas">
+<div id="diagram">
+  <div class="diagram-container"></div>
 </div>
