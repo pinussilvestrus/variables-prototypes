@@ -33,6 +33,10 @@
 
       onSelectionChanged(element);
     });
+
+    modeler.on('commandStack.changed', function(event) {
+      onDiagramChanged(modeler);
+    });
   };
 
   onMount(async () => {
@@ -55,7 +59,7 @@
 
     canvas.zoom('fit-viewport');
 
-    onDiagramLoaded();
+    onDiagramLoaded(modeler);
 
     bindListeners(modeler);
   });
@@ -64,6 +68,7 @@
 
   export let onDiagramLoaded = noop;
   export let onSelectionChanged = noop;
+  export let onDiagramChanged = noop;
 </script>
 
 <style lang="scss">

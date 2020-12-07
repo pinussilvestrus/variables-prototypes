@@ -6,9 +6,23 @@
 	import startDiagram from './resources/diagram_1.bpmn';
 
 	let currentElement;
+	let currentXml;
 
 	const handleSelectionChanged = (element) => {
 	  currentElement = element;
+	};
+
+	const handleUpdateXML = async (modeler) => {
+	  const {
+	    error,
+	    xml
+	  } = await modeler.saveXML({ format: true });
+	
+	  if (error) {
+	    return;
+	  }
+
+	  currentXml = xml;
 	};
 	
 </script>
@@ -19,6 +33,8 @@
 			<Diagram 
 				xml={startDiagram} 
 				onSelectionChanged={handleSelectionChanged}
+				onDiagramChanged={handleUpdateXML}
+				onDiagramLoaded={handleUpdateXML}
 			/>
 
 			{#if currentElement}
@@ -27,7 +43,9 @@
 				/>
 			{/if}
 		</div>
-		<BottomPanel />
+		<BottomPanel
+			xml={currentXml}
+		/>
 	</main>
 </div>
 

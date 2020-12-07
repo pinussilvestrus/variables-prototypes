@@ -6,16 +6,21 @@
   };
 
   export let rootElement = {};
+  export let xml;
 </script>
 
 <style lang="scss">
   #bottom-panel {
-    height: 280px;
+    height: 450px;
     width: 100%;
     flex: none;
     background-color: whitesmoke;
     border-top: solid 1px #cccccc;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+
+    .container {
+      height: 100%;
+    }
 
     .tabs {
       border-bottom: solid 2px #dddddd;
@@ -37,7 +42,9 @@
     }
 
     .content {
-        padding: 10px 15px;
+      padding: 10px 15px;
+      overflow: auto;
+      height: 85%;
     }
   }
 </style>
@@ -63,7 +70,7 @@
         foo
       {/if}
       {#if activeTab === 'xml'}
-        bar
+        <pre>{xml}</pre>
       {/if}
     </div>
   </div>

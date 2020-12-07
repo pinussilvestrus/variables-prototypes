@@ -94,3 +94,7 @@ button:focus {
   margin-top: 5px;
   color: #999;
 }
+
+.djs-palette.two-column.open {
+  width: 48px !important;
+}
