@@ -7,9 +7,16 @@
 
 	let currentElement;
 	let currentXml;
+	let currentModeler;
 
 	const handleSelectionChanged = (element) => {
 	  currentElement = element;
+	};
+
+	const handleDiagramLoaded = async (modeler) => {
+	  currentModeler = modeler;
+
+	  handleUpdateXML(modeler);
 	};
 
 	const handleUpdateXML = async (modeler) => {
@@ -34,7 +41,7 @@
 				xml={startDiagram} 
 				onSelectionChanged={handleSelectionChanged}
 				onDiagramChanged={handleUpdateXML}
-				onDiagramLoaded={handleUpdateXML}
+				onDiagramLoaded={handleDiagramLoaded}
 			/>
 
 			{#if currentElement}

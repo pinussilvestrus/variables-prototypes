@@ -11,7 +11,7 @@
 
 <style lang="scss">
   #bottom-panel {
-    height: 450px;
+    height: 33%;
     width: 100%;
     flex: none;
     background-color: whitesmoke;
@@ -44,7 +44,7 @@
     .content {
       padding: 10px 15px;
       overflow: auto;
-      height: 85%;
+      height: 75%;
     }
   }
 </style>

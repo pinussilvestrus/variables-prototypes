@@ -98,3 +98,7 @@ button:focus {
 .djs-palette.two-column.open {
   width: 48px !important;
 }
+
+.bjs-container {
+  position: absolute !important;
+}
