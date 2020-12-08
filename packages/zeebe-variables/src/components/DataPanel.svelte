@@ -11,7 +11,7 @@
 </script>
 
 <style lang="scss">
-  #bottom-panel {
+  #data-panel {
     height: 33%;
     width: 100%;
     flex: none;
@@ -50,7 +50,7 @@
   }
 </style>
 
-<div id="bottom-panel">
+<div id="data-panel">
   <div class="container">
     <div class="tabs">
       <div 

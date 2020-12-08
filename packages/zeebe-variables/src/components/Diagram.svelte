@@ -3,7 +3,10 @@
 
   import BpmnModeler from 'bpmn-js/lib/Modeler';
 
-  import ZeebeModelerExtensions from '../features';
+  import ZeebeModelerExtensions from '../features/zeebe-extensions';
+
+  import Commands from '../features/cmd';
+
 
   import 'bpmn-js/dist/assets/diagram-js.css';
 
@@ -44,7 +47,8 @@
       container: '.diagram-container',
       keyboard: { bindTo: document },
       additionalModules: [
-        ZeebeModelerExtensions
+        ZeebeModelerExtensions,
+        Commands
       ]
     });
 

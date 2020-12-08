@@ -1,7 +1,7 @@
 <script>
 	import Diagram from './components/Diagram.svelte';
 	import Properties from './components/Properties.svelte';
-	import BottomPanel from './components/BottomPanel.svelte';
+	import DataPanel from './components/DataPanel.svelte';
 
 	import startDiagram from './resources/diagram_1.bpmn';
 
@@ -60,7 +60,7 @@
 				/>
 			{/if}
 		</div>
-		<BottomPanel
+		<DataPanel
 			xml={currentXml}
 			{rootElement}
 		/>
