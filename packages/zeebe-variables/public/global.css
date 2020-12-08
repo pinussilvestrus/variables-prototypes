@@ -68,6 +68,7 @@ button:focus {
 
 #properties .group {
   padding: 10px 15px;
+  position: relative;
 }
 
 #properties .group .group-header {
@@ -93,6 +94,37 @@ button:focus {
 #properties .group .entry.entry-description {
   margin-top: 5px;
   color: #999;
+}
+
+#properties .action-button {
+  position: absolute;
+  right: 10px;
+  height: 23px;
+  padding: 0 0 2px;
+  top: 22px;
+  width: 24px;
+  overflow: hidden;
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+
+}
+
+#properties .action-button:before {
+  font-style: normal;
+  font-weight: normal;
+
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#properties .action-button.add:before {
+  content: '+';
 }
 
 .djs-palette.two-column.open {

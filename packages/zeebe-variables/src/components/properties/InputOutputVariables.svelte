@@ -13,10 +13,14 @@
 {#if show}
   <div class="group">
     <p class="group-header">Input Variables</p>
+    <button class="action-button add"></button>
+
     <p class="entry entry-description">No variables defined.</p>
   </div>
   <div class="group">
     <p class="group-header">Output Variables</p>
+    <button class="action-button add"></button>
+
     <p class="entry entry-description">No variables defined.</p>
   </div>
 {/if}
