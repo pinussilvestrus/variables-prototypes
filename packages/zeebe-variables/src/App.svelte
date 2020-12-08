@@ -8,12 +8,21 @@
 	let currentElement;
 	let currentXml;
 	let currentModeler;
+	let rootElement;
+
+	$: {
+	  if (currentModeler) {
+	    const canvas = currentModeler.get('canvas');
+	
+	    rootElement = canvas.getRootElement();
+	  }
+	}
 
 	const handleSelectionChanged = (element) => {
 	  currentElement = element;
 	};
 
-	const handleDiagramLoaded = async (modeler) => {
+	const handleDiagramChanged = async (modeler) => {
 	  currentModeler = modeler;
 
 	  handleUpdateXML(modeler);
@@ -40,8 +49,8 @@
 			<Diagram 
 				xml={startDiagram} 
 				onSelectionChanged={handleSelectionChanged}
-				onDiagramChanged={handleUpdateXML}
-				onDiagramLoaded={handleDiagramLoaded}
+				onDiagramChanged={handleDiagramChanged}
+				onDiagramLoaded={handleDiagramChanged}
 			/>
 
 			{#if currentElement}
@@ -52,6 +61,7 @@
 		</div>
 		<BottomPanel
 			xml={currentXml}
+			{rootElement}
 		/>
 	</main>
 </div>

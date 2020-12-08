@@ -1,5 +1,6 @@
 <script>
   let activeTab = 'variables';
+  let variables = [];
 
   const setTab = (id) => {
     activeTab = id;
@@ -67,7 +68,11 @@
     </div>
     <div class="content">
       {#if activeTab === 'variables'}
-        foo
+        {#each variables as variable}
+          <div class="variable">{variable}</div>
+        {:else}
+          No variables defined.
+        {/each}
       {/if}
       {#if activeTab === 'xml'}
         <pre>{xml}</pre>
