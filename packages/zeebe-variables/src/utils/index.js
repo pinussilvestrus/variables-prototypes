@@ -6,6 +6,12 @@ export function getIOSpeficiation(element) {
   return element.get('ioSpecification');
 }
 
+export function getDataInputs(element) {
+  const ioSpecification = getIOSpeficiation(element);
+
+  return ioSpecification && ioSpecification.get('dataInputs');
+}
+
 /**
 * Create and return bpmn:DataInput.
 *

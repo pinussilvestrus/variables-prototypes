@@ -5,14 +5,25 @@
   } from 'bpmn-js/lib/util/ModelUtil';
 
   import {
-    createDataInput
+    createDataInput,
+    getDataInputs
   } from '../../utils';
 
   let show = false;
+  let variables = [];
 
   $: {
     show = is(element, 'bpmn:Process');
   }
+
+  $: {
+    element && updateVariables();
+  }
+
+  const updateVariables = () => {
+    const businessObject = getBusinessObject(element);
+    variables = getDataInputs(businessObject) || [];
+  };
 
   const createProcessInput = () => {
     const bpmnFactory = modeler.get('bpmnFactory');
@@ -32,6 +43,8 @@
         ioSpecification
       }
     });
+
+    updateVariables();
   };
 
   export let element = {};
@@ -43,6 +56,10 @@
     <p class="group-header">Process Input Variables</p>
     <button class="action-button add" on:click={createProcessInput}></button>
 
-    <p class="entry entry-description">No variables defined.</p>
+    {#each variables as variable}
+      <p>{variable.id}</p>
+    {:else}
+      <p class="entry entry-description">No variables defined.</p>
+    {/each}
   </div>
 {/if}
