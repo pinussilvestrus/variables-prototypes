@@ -50,8 +50,6 @@ export function createDataInput(element, bpmnFactory) {
 
   let dataInput = bpmnFactory.create('bpmn:DataInput');
 
-  console.log(dataInput.id);
-
   dataInput.$parent = ioSpecification;
 
   if (!ioSpecification.dataInputs) {
