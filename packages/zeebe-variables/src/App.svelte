@@ -56,6 +56,7 @@
 			{#if currentElement}
 				<Properties 
 					element={currentElement}
+					modeler={currentModeler}
 				/>
 			{/if}
 		</div>

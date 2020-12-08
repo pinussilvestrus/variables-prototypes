@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "bpmn-js": "^7.5.0",
+    "diagram-js": "^6.8.2",
     "min-dash": "^3.5.2"
   }
 }

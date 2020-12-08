@@ -4,6 +4,7 @@
 
 
   export let element = {};
+  export let modeler;
 </script>
 
 <style lang="scss">
@@ -34,7 +35,7 @@
 
     <div class="properties">
       <InputOutputVariables {element} />
-      <ProcessInputVariables {element} />
+      <ProcessInputVariables {element} {modeler} />
     </div>
   </div>
 </div>
