@@ -7,7 +7,7 @@
   import {
     createDataInput,
     getDataInputs
-  } from '../../utils';
+  } from '../../utils/DataInputOutputHelper';
 
   let show = false;
   let variables = [];

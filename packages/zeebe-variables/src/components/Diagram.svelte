@@ -7,6 +7,8 @@
 
   import Commands from '../features/cmd';
 
+  import VariableStore from '../features/variable-store';
+
 
   import 'bpmn-js/dist/assets/diagram-js.css';
 
@@ -48,7 +50,8 @@
       keyboard: { bindTo: document },
       additionalModules: [
         ZeebeModelerExtensions,
-        Commands
+        Commands,
+        VariableStore
       ]
     });
 

@@ -8,15 +8,6 @@
 	let currentElement;
 	let currentXml;
 	let currentModeler;
-	let rootElement;
-
-	$: {
-	  if (currentModeler) {
-	    const canvas = currentModeler.get('canvas');
-	
-	    rootElement = canvas.getRootElement();
-	  }
-	}
 
 	const handleSelectionChanged = (element) => {
 	  currentElement = element;
@@ -62,7 +53,7 @@
 		</div>
 		<DataPanel
 			xml={currentXml}
-			{rootElement}
+			modeler={currentModeler}
 		/>
 	</main>
 </div>

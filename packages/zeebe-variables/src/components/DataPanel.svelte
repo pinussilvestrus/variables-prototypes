@@ -1,4 +1,8 @@
 <script>
+  import {
+    getBusinessObject
+  } from 'bpmn-js/lib/util/ModelUtil';
+
   let activeTab = 'variables';
   let variables = [];
 
@@ -6,7 +10,24 @@
     activeTab = id;
   };
 
-  export let rootElement = {};
+  const updateVariables = () => {
+    const canvas = modeler.get('canvas');
+
+    const variableStore = modeler.get('variableStore');
+
+    const rootElement = canvas.getRootElement();
+
+    const businessObject = getBusinessObject(rootElement);
+
+    // todo(pinussilvestrus): handle as names
+    variables = variableStore.collectVariables(businessObject);
+  };
+
+  $: {
+    modeler && updateVariables();
+  }
+
+  export let modeler;
   export let xml;
 </script>
 
@@ -68,11 +89,26 @@
     </div>
     <div class="content">
       {#if activeTab === 'variables'}
-        {#each variables as variable}
-          <div class="variable">{variable}</div>
+        {#if variables.length}
+          <div class="variables">
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Created In</th>
+                <th>Used In</th>
+              </tr>
+              {#each variables as variable}
+                <tr>
+                  <td>{variable.name}</td>
+                  <td>{variable.origin}</td>
+                  <td>{variable.usage}</td>
+                </tr>
+              {/each}
+            </table>
+          </div>
         {:else}
           No variables defined.
-        {/each}
+        {/if}
       {/if}
       {#if activeTab === 'xml'}
         <pre>{xml}</pre>
