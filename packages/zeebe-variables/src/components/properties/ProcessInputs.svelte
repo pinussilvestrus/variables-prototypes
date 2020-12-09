@@ -35,6 +35,9 @@
       dataInput,
       updates
     );
+
+    // dirty stuff :-(
+    updateVariables();
   };
 
   const createProcessInput = () => {
@@ -72,6 +75,7 @@
       <ProcessInputItem 
         processInput={variable} 
         onUpdateProperties={handleUpdateProperties}
+        {modeler}
       />
     {:else}
       <p class="entry entry-description">No variables defined.</p>

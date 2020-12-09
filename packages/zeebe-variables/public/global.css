@@ -145,7 +145,7 @@ button:focus {
   margin-bottom: 3px;
 }
 
-#properties input {
+#properties input, textarea {
   padding: 4px 7px;
   border: 1px solid #cccccc;
   vertical-align: middle;
