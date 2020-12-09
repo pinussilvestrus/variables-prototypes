@@ -3,6 +3,11 @@
     getBusinessObject
   } from 'bpmn-js/lib/util/ModelUtil';
 
+  import {
+    forEach,
+    reduce
+  } from 'min-dash';
+
   let activeTab = 'variables';
   let variables = [];
 
@@ -19,8 +24,20 @@
 
     const businessObject = getBusinessObject(rootElement);
 
-    // todo(pinussilvestrus): handle as names
     variables = variableStore.collectVariables(businessObject);
+
+    // set display with ids (and names if applicable)
+    forEach(variables, (variable) => {
+      variable.originDisplay = reduce(variable.origin, (result, o, idx) => {
+        let separator = ', ';
+
+        if (idx === variable.origin.length - 1) {
+          separator = '';
+        }
+
+        return result += o.id + separator;
+      }, '');
+    });
   };
 
   $: {
@@ -68,6 +85,38 @@
       overflow: auto;
       height: 75%;
     }
+
+    .variables {
+
+      table {
+        width: 100%;
+
+        th {
+          text-align: start;
+          font-style: italic;
+          border-bottom: 1px solid #cccccc;
+          padding: 4px 7px;
+
+          &.name {
+            width: 20%;
+          }
+
+          &.createdIn {
+            width: 40%;
+          }
+
+          &.usedIn {
+            width: 40%;
+          }
+        }
+
+        td {
+          border-bottom: 1px solid #cccccc;
+          padding: 4px 7px;
+        }
+      }
+
+    }
   }
 </style>
 
@@ -93,14 +142,14 @@
           <div class="variables">
             <table>
               <tr>
-                <th>Name</th>
-                <th>Created In</th>
-                <th>Used In</th>
+                <th class="name">Name</th>
+                <th class="createdIn">Created In</th>
+                <th class="usedIn">Used In</th>
               </tr>
               {#each variables as variable}
                 <tr>
                   <td>{variable.name}</td>
-                  <td>{variable.origin}</td>
+                  <td>{variable.originDisplay}</td>
                   <td>{variable.usage}</td>
                 </tr>
               {/each}

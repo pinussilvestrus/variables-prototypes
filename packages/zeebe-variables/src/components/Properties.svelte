@@ -9,11 +9,19 @@
 
 <style lang="scss">
   #properties {
+    position: relative;
     width: 280px;
     flex: none;
     background-color: whitesmoke;
     border-left: solid 1px #cccccc;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+
+    .container {
+      position: absolute;
+      overflow-y: auto;
+      width: 100%;
+      height: 100%;
+    }
 
     .header {
       padding: 15px;
