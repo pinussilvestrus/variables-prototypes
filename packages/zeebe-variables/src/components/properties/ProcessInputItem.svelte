@@ -12,7 +12,7 @@
 
   const handleTitleClick = (event) => {
     const titleNode = dom(event.target),
-          containerGfx = titleNode.closest('.input');
+          containerGfx = titleNode.closest('.process-input');
 
     if (containerGfx.hasClass('active')) {
       containerGfx.removeClass('active');
@@ -63,7 +63,7 @@
 
 </script>
 
-<div class="item input" id={`${processInput.id}`}>
+<div class="item process-input" id={`${processInput.id}`}>
   <div class="item-header input-header" on:click={handleTitleClick}>
     <p class="item-name"><i class="chevron"></i>{processInput.id}</p>
     <p class="item-description">{headerDescription}</p>

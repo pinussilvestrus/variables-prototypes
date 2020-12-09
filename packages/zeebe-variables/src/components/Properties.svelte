@@ -42,8 +42,8 @@
     </div>
 
     <div class="properties">
-      <InputVariables {element} />
-      <OutputVariables {element} />
+      <InputVariables {element} {modeler} />
+      <OutputVariables {element} {modeler} />
       <ProcessInputVariables {element} {modeler} />
     </div>
   </div>

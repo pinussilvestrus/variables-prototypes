@@ -12,13 +12,18 @@ export function getDataInputs(element) {
   return ioSpecification && ioSpecification.get('dataInputs');
 }
 
+export function getDataOutputAssociations(element) {
+  return element.get('dataOutputAssociations');
+}
+
 /**
 * Create and return bpmn:DataInput.
 *
 * Create bpmn:InputOutputSpecification, dataInputs and inputSets if not
 * found.
 *
-* @param {ModdleElement} element - Element.
+* @param {ModdleElement} element
+* @param {BpmnFactory} bpmnFactory
 *
 * @returns {ModdleElement}
 */
@@ -83,4 +88,51 @@ export function createDataInput(element, bpmnFactory) {
     dataInput,
     ioSpecification
   };
+}
+
+/**
+* Create and return bpmn:OutputAssociation with a simple bpmn:Assignment.
+*
+* @param {BpmnFactory} bpmnFactory
+*
+* @returns {ModdleElement}
+*/
+export function createDataOutputAssociation(bpmnFactory) {
+  const outputAssociation = bpmnFactory.create('bpmn:DataOutputAssociation');
+
+  const variableId = 'Output_' + generateId(5);
+
+  const from = bpmnFactory.create('bpmn:Expression', {
+    body: variableId
+  });
+
+  const to = bpmnFactory.create('bpmn:Expression', {
+    body: variableId
+  });
+
+  const assignment = bpmnFactory.create('bpmn:Assignment', {
+    from,
+    to
+  });
+
+  collectionAdd(outputAssociation.get('assignment'), assignment);
+
+  return outputAssociation;
+}
+
+
+// helper
+
+function generateId(length) {
+  let result = '';
+
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  const charactersLength = characters.length;
+
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
 }
