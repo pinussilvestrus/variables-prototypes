@@ -33,7 +33,12 @@ export default class ProcessDataInputProvider {
       const newVariable = createProcessVariable(
         dataInput.id,
         containerElement,
-        [ containerElement ]
+        [
+          {
+            createdIn: containerElement,
+            type: 'processDataInput'
+          }
+        ]
       );
 
       addVariableToList(processVariables, newVariable);

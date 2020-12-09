@@ -2,7 +2,8 @@ import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 
 import {
   forEach,
-  find
+  find,
+  filter
 } from 'min-dash';
 
 import {
@@ -80,8 +81,6 @@ export default class OutputVariableBehavior extends CommandInterceptor {
   }
 
   createDataObjectsIfNonExisting(dataOutputAssociations) {
-    const variableStore = this._variableStore;
-
     const canvas = this._canvas;
 
     const bpmnFactory = this._bpmnFactory;
@@ -92,14 +91,14 @@ export default class OutputVariableBehavior extends CommandInterceptor {
 
 
     // (1) get all data objects on parent scope
-    const variables = variableStore.collectVariables(rootBo);
+    const dataObjects = getDataObjects(rootBo);
 
     // (2) create missing data objects
     forEach(dataOutputAssociations, (output) => {
 
-      // (2.1) check whether data object for output exists
-      const found = find(variables, (v) => {
-        return v.name === getVariableName(output);
+      // (2.1) check whether data object exists
+      const found = find(dataObjects, (d) => {
+        return d.id === getVariableName(output);
       });
 
       if (found) {
@@ -136,17 +135,22 @@ export default class OutputVariableBehavior extends CommandInterceptor {
     // (2) remove all variables which don't have a creation place
     // todo(pinussilvestrus): is this enough?
     forEach(variables, (v) => {
-      if (v.createdIn.length > 0) {
+      const {
+        createdIn
+      } = v;
+
+      // is elsewhere created
+      if (createdIn.length > 0) {
         return;
       }
 
       const dataObjects = getDataObjects(rootBo);
 
-      const found = find(dataObjects, (d) => {
+      const removingDataObjects = find(dataObjects, (d) => {
         return d.id === v.name;
       });
 
-      collectionRemove(rootBo.get('flowElements'), found);
+      collectionRemove(rootBo.get('flowElements'), removingDataObjects);
     });
 
   }

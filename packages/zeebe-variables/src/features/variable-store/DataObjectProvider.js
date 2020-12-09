@@ -5,7 +5,8 @@ import {
 import {
   forEach,
   filter,
-  find
+  find,
+  map
 } from 'min-dash';
 
 import {
@@ -37,7 +38,12 @@ export default class DataObjectProvider {
     forEach(dataObjects, (dataObject) => {
 
       // find creation origin --> data output association of a flow element
-      const createdIn = findDataOutputAssociation(elements, dataObject.id);
+      const createdIn = map(findDataOutputAssociation(elements, dataObject.id), (e) => {
+        return {
+          createdIn: e,
+          type: 'dataObject'
+        };
+      });
 
       const newVariable = createProcessVariable(
         dataObject.id,

@@ -144,7 +144,7 @@ export function addVariableToList(variablesList, newVariable) {
  *
  * @param {String} name
  * @param {ModdleElement} scope
- * @param {Array<ModdleElement>} createdIn
+ * @param {Array<CreatedInDefinition>} createdIn
  *
  * @returns {ProcessVariable}
  */

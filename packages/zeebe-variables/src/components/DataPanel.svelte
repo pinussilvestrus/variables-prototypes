@@ -28,14 +28,18 @@
 
     // set display with ids (and names if applicable)
     forEach(variables, (variable) => {
-      variable.createdInDisplay = reduce(variable.createdIn, (result, o, idx) => {
+      variable.createdInDisplay = reduce(variable.createdIn, (result, c, idx) => {
         let separator = ', ';
+
+        const {
+          createdIn
+        } = c;
 
         if (idx === variable.createdIn.length - 1) {
           separator = '';
         }
 
-        const displayName = o.name || o.id;
+        const displayName = createdIn.name || createdIn.id;
 
         return result += displayName + separator;
       }, '');

@@ -16,11 +16,18 @@ const DEFAULT_PROVIDERS = [
 ];
 
 /**
+ * @typedef {Object} CreatedInDefinition
+ * @property {ModdleElement} createdIn
+ * @property {String} type
+ */
+
+/**
  * @typedef {Object} ProcessVariable
- * @property {Array<ModdleElement>} createdIn
+ * @property {Array<CreatedInDefinition>} createdIn
  * @property {Array<ModdleElement>} usedIn
  * @property {String} name
  * @property {ModdleElement} scope
+ * @property {String} creationType
  */
 
 
