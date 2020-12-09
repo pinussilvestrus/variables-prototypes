@@ -28,13 +28,17 @@
     }
   };
 
-  const handleIdChange = (event) => {
+  const handleNameChange = (event) => {
     const target = event.target;
 
     const value = target.value;
 
+    const assignment = variable.get('assignment')[0];
+
+    assignment.get('to').set('body', value);
+
     onUpdateProperties(variable, {
-      id: value
+      assignment: [ assignment ]
     });
   };
 
@@ -51,9 +55,9 @@
   <div class="item-details">
     <label for="id">Process Variable Name</label>
     <input 
-      id="id" 
+      id="name" 
       autocomplete="off" 
       value={variableName} 
-      on:change={handleIdChange} />
+      on:change={handleNameChange} />
   </div>
 </div>

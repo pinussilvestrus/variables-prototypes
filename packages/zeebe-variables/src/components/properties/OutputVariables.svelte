@@ -54,6 +54,19 @@
 
     updateVariables();
   };
+
+  const handleUpdateProperties = (dataOutputAssociation, updates) => {
+    const modeling = modeler.get('modeling');
+
+    modeling.updateModdleProperties(
+      element,
+      dataOutputAssociation,
+      updates
+    );
+
+    // dirty stuff :-(
+    updateVariables();
+  };
   
   export let element = {};
   export let modeler;
@@ -68,6 +81,7 @@
     <OutputVariableItem 
       {variable} 
       {modeler}
+      onUpdateProperties={handleUpdateProperties}
     />
     {:else}
       <p class="entry entry-description">No variables defined.</p>

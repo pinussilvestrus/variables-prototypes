@@ -33,7 +33,6 @@ export function getDataOutputAssociations(element) {
 }
 
 export function getVariableName(dataOutputAssociation) {
-  console.log(dataOutputAssociation);
   const assignment = dataOutputAssociation.get('assignment')[0];
 
   return assignment && assignment.get('to').get('body');
