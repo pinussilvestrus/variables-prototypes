@@ -149,9 +149,7 @@ export function addVariableToList(variablesList, newVariable) {
  *
  * @returns {ProcessVariable}
  */
-export function createProcessVariable(origin, name, defaultScope) {
-  var scope = getScope(origin, defaultScope, name);
-
+export function createProcessVariable(origin, name, scope) {
   return {
     name: name,
     origin: [origin],
@@ -161,25 +159,6 @@ export function createProcessVariable(origin, name, defaultScope) {
 
 
 // helpers ////////////////////
-
-/**
- * Set parent container if it defines it's own scope for the variable, so
- * when it defines an input mapping for it. Otherwise returns the default global scope
- */
-function getScope(element, globalScope, variableName) {
-  var parents = getParents(element);
-
-  // todo(pinussilvestrus): handle this via zeebe inputs, not camunda
-  var scopedParent = find(parents, function(parent) {
-    return false;
-
-    // return (
-    //   is(parent, 'bpmn:SubProcess') && hasInputParameter(parent, variableName)
-    // );
-  });
-
-  return scopedParent ? scopedParent : globalScope;
-}
 
 function combineArrays(a, b) {
   return a.concat(b);

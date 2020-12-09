@@ -31,7 +31,7 @@
     variables = getDataOutputAssociations(businessObject) || [];
   };
 
-  const createOutputAssociation = () => {
+  const createOutputVariable = () => {
     const bpmmFactory = modeler.get('bpmnFactory');
 
     const modeling = modeler.get('modeling');
@@ -62,7 +62,7 @@
 {#if show}
   <div class="group">
     <p class="group-header">Output Variables</p>
-    <button class="action-button add" on:click={createOutputAssociation}></button>
+    <button class="action-button add" on:click={createOutputVariable}></button>
 
     {#each variables as variable}
     <OutputVariableItem 
