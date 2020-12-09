@@ -126,7 +126,7 @@ export function createDataOutputAssociation(bpmnFactory) {
   const variableId = 'Output_' + generateId(5);
 
   const from = bpmnFactory.create('bpmn:Expression', {
-    body: variableId
+    body: '= ' + variableId
   });
 
   const to = bpmnFactory.create('bpmn:Expression', {

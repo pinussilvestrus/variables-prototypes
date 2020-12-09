@@ -1,4 +1,7 @@
-import { forEach } from 'min-dash';
+import {
+  forEach,
+  filter
+} from 'min-dash';
 
 import ContainerDataInputProvider from './ContainerDataInputProvider';
 import DataObjectProvider from './DataObjectProvider';
@@ -38,10 +41,10 @@ export default class VariableStore {
   }
 
   collectVariables(containerElement) {
-    var processVariables = [];
+    let processVariables = [];
 
     // (1) extract all flow elements inside the container
-    var elements = selfAndAllFlowElements([containerElement], false);
+    const elements = selfAndAllFlowElements([containerElement], false);
 
     // (2) extract all variables from the extractors
     forEach(this._providers, function(provider) {
@@ -56,6 +59,16 @@ export default class VariableStore {
     // todo(pinussilvestrus)
 
     return processVariables;
+  }
+
+  // todo(pinussilvestrus): implement me for variable usage
+  findVariables(element, containerElement) {
+    const variables = this.collectVariables(containerElement);
+
+    return filter(variables, (v) => {
+      return;
+    });
+
   }
 
   registerProvider(provider) {

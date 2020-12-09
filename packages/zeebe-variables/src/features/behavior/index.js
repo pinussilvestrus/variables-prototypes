@@ -1,8 +1,8 @@
-import CreateOutputVariableBehavior from './CreateOutputVariableBehavior';
+import OutputVariableBehavior from './OutputVariableBehavior';
 
 export default {
   __init__: [
-    'createOutputVariableBehavior'
+    'outputVariableBehavior'
   ],
-  createOutputVariableBehavior: [ 'type', CreateOutputVariableBehavior ]
+  outputVariableBehavior: [ 'type', OutputVariableBehavior ]
 };
