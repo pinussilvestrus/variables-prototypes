@@ -35,8 +35,9 @@
           separator = '';
         }
 
-        // todo(pinussilvestrus): use names if applicable
-        return result += o.id + separator;
+        const displayName = o.name || o.id;
+
+        return result += displayName + separator;
       }, '');
     });
   };

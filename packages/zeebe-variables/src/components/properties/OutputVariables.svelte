@@ -80,7 +80,6 @@
     {#each variables as variable}
     <OutputVariableItem 
       {variable} 
-      {modeler}
       onUpdateProperties={handleUpdateProperties}
     />
     {:else}
