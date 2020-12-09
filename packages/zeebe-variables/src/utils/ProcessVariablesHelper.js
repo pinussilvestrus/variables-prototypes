@@ -130,9 +130,9 @@ export function addVariableToList(variablesList, newVariable) {
   });
 
   if (foundIdx >= 0) {
-    variablesList[foundIdx].origin = combineArrays(
-      variablesList[foundIdx].origin,
-      newVariable.origin
+    variablesList[foundIdx].createdIn = combineArrays(
+      variablesList[foundIdx].createdIn,
+      newVariable.createdIn
     );
   } else {
     variablesList.push(newVariable);
@@ -141,18 +141,18 @@ export function addVariableToList(variablesList, newVariable) {
 
 /**
  * Creates new process variable definition object
- * Identifies correct (highest) scope, in which variable is available
  *
- * @param {ModdleElement} origin
  * @param {String} name
- * @param {ModdleElement} defaultScope
+ * @param {ModdleElement} scope
+ * @param {Array<ModdleElement>} createdIn
  *
  * @returns {ProcessVariable}
  */
-export function createProcessVariable(origin, name, scope) {
+export function createProcessVariable(name, scope, createdIn) {
   return {
     name: name,
-    origin: [origin],
+    createdIn: createdIn,
+    usedIn: [],
     scope: scope
   };
 }

@@ -28,10 +28,10 @@
 
     // set display with ids (and names if applicable)
     forEach(variables, (variable) => {
-      variable.originDisplay = reduce(variable.origin, (result, o, idx) => {
+      variable.createdInDisplay = reduce(variable.createdIn, (result, o, idx) => {
         let separator = ', ';
 
-        if (idx === variable.origin.length - 1) {
+        if (idx === variable.createdIn.length - 1) {
           separator = '';
         }
 
@@ -150,7 +150,7 @@
               {#each variables as variable}
                 <tr>
                   <td>{variable.name}</td>
-                  <td>{variable.originDisplay}</td>
+                  <td>{variable.createdInDisplay}</td>
                   <td>{variable.usage}</td>
                 </tr>
               {/each}

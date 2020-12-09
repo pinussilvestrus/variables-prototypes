@@ -13,6 +13,9 @@ import {
   add as collectionAdd
 } from 'diagram-js/lib/util/Collections';
 
+import {
+  getVariableName
+} from '../../utils/DataInputOutputHelper';
 
 /**
  * Ensures a data object will be created once a data output association is created.
@@ -81,11 +84,3 @@ CreateOutputVariableBehavior.$inject = [
   'bpmnFactory',
   'canvas'
 ];
-
-// / helper /////////////////
-
-function getVariableName(dataOutputAssociation) {
-  const assignment = dataOutputAssociation.get('assignment')[0];
-
-  return assignment && assignment.get('to').get('body');
-}

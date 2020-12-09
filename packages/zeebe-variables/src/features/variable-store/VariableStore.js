@@ -1,14 +1,25 @@
 import { forEach } from 'min-dash';
 
-import ProcessDataInputProvider from './ProcessDataInputProvider';
+import ContainerDataInputProvider from './ContainerDataInputProvider';
+import DataObjectProvider from './DataObjectProvider';
 
 import {
   selfAndAllFlowElements
 } from '../../utils/ProcessVariablesHelper';
 
 const DEFAULT_PROVIDERS = [
-  ProcessDataInputProvider
+  ContainerDataInputProvider,
+  DataObjectProvider
 ];
+
+/**
+ * @typedef {Object} ProcessVariable
+ * @property {Array<ModdleElement>} createdIn
+ * @property {Array<ModdleElement>} usedIn
+ * @property {String} name
+ * @property {ModdleElement} scope
+ */
+
 
 export default class VariableStore {
 
@@ -40,6 +51,9 @@ export default class VariableStore {
         processVariables: processVariables
       });
     });
+
+    // (3) search for usage place
+    // todo(pinussilvestrus)
 
     return processVariables;
   }

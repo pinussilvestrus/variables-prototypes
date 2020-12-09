@@ -2,6 +2,14 @@ import {
   add as collectionAdd
 } from 'diagram-js/lib/util/Collections';
 
+import {
+  filter
+} from 'min-dash';
+
+import {
+  is
+} from 'bpmn-js/lib/util/ModelUtil';
+
 export function getIOSpeficiation(element) {
   return element.get('ioSpecification');
 }
@@ -12,8 +20,23 @@ export function getDataInputs(element) {
   return ioSpecification && ioSpecification.get('dataInputs');
 }
 
+export function getDataObjects(element) {
+  const flowElements = element.get('flowElements');
+
+  return filter(flowElements, (flowElement) => {
+    return is(flowElement, 'bpmn:DataObject');
+  });
+}
+
 export function getDataOutputAssociations(element) {
   return element.get('dataOutputAssociations');
+}
+
+export function getVariableName(dataOutputAssociation) {
+  console.log(dataOutputAssociation);
+  const assignment = dataOutputAssociation.get('assignment')[0];
+
+  return assignment && assignment.get('to').get('body');
 }
 
 /**

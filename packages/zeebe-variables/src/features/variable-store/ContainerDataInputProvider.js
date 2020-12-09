@@ -30,10 +30,10 @@ export default class ProcessDataInputProvider {
     const dataInputs = getDataInputs(containerElement);
 
     forEach(dataInputs, (dataInput) => {
-      var newVariable = createProcessVariable(
-        containerElement,
+      const newVariable = createProcessVariable(
         dataInput.id,
-        containerElement
+        containerElement,
+        [ containerElement ]
       );
 
       addVariableToList(processVariables, newVariable);

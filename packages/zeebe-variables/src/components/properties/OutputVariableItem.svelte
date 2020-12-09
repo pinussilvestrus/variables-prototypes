@@ -1,6 +1,10 @@
 <script>
   import dom from 'domtastic';
 
+  import {
+    getVariableName
+  } from '../../utils/DataInputOutputHelper';
+
   const noop = () => {};
 
   let headerDescription;
@@ -9,7 +13,7 @@
   $: {
     if (variable) {
       headerDescription = '';
-      variableName = getVariableName();
+      variableName = getVariableName(variable);
     }
   }
 
@@ -22,12 +26,6 @@
     } else {
       containerGfx.addClass('active');
     }
-  };
-
-  const getVariableName = () => {
-    const assignment = variable.get('assignment')[0];
-
-    return assignment && assignment.get('to').get('body');
   };
 
   const handleIdChange = (event) => {
