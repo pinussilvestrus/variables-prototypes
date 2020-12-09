@@ -2,8 +2,7 @@ import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 
 import {
   forEach,
-  find,
-  filter
+  find
 } from 'min-dash';
 
 import {
