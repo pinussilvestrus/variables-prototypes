@@ -9,6 +9,8 @@
     getDataInputs
   } from '../../utils/DataInputOutputHelper';
 
+  import ProcessInputItem from './ProcessInputItem.svelte';
+
   let show = false;
   let variables = [];
 
@@ -25,10 +27,20 @@
     variables = getDataInputs(businessObject) || [];
   };
 
+  const handleUpdateProperties = (dataInput, updates) => {
+    const modeling = modeler.get('modeling');
+
+    modeling.updateModdleProperties(
+      element,
+      dataInput,
+      updates
+    );
+  };
+
   const createProcessInput = () => {
     const bpmnFactory = modeler.get('bpmnFactory');
 
-    const commandStack = modeler.get('commandStack');
+    const modeling = modeler.get('modeling');
 
     const businessObject = getBusinessObject(element);
 
@@ -36,13 +48,13 @@
       ioSpecification
     } = createDataInput(businessObject, bpmnFactory);
 
-    commandStack.execute('update-businessobject', {
+    modeling.updateModdleProperties(
       element,
       businessObject,
-      properties: {
+      {
         ioSpecification
       }
-    });
+    );
 
     updateVariables();
   };
@@ -57,7 +69,10 @@
     <button class="action-button add" on:click={createProcessInput}></button>
 
     {#each variables as variable}
-      <p>{variable.id}</p>
+      <ProcessInputItem 
+        processInput={variable} 
+        onUpdateProperties={handleUpdateProperties}
+      />
     {:else}
       <p class="entry entry-description">No variables defined.</p>
     {/each}

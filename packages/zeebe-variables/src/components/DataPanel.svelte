@@ -35,6 +35,7 @@
           separator = '';
         }
 
+        // todo(pinussilvestrus): use names if applicable
         return result += o.id + separator;
       }, '');
     });

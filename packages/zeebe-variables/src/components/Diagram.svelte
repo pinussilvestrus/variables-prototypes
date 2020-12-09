@@ -5,8 +5,6 @@
 
   import ZeebeModelerExtensions from '../features/zeebe-extensions';
 
-  import Commands from '../features/cmd';
-
   import VariableStore from '../features/variable-store';
 
 
@@ -50,7 +48,6 @@
       keyboard: { bindTo: document },
       additionalModules: [
         ZeebeModelerExtensions,
-        Commands,
         VariableStore
       ]
     });
