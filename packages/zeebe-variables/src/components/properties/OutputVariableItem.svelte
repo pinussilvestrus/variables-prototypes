@@ -36,6 +36,9 @@
     const assignment = variable.get('assignment')[0];
 
     assignment.get('to').set('body', value);
+  
+    // todo(pinussilvestrus): handle variable assignment value state
+    assignment.get('from').set('body', '= ' + value);
 
     onUpdateProperties(variable, {
       assignment: [ assignment ]
