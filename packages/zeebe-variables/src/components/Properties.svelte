@@ -1,7 +1,7 @@
 <script>
-  import InputOutputVariables from './properties/InputOutputVariables.svelte';
+  import InputVariables from './properties/InputVariables.svelte';
+  import OutputVariables from './properties/OutputVariables.svelte';
   import ProcessInputVariables from './properties/ProcessInputs.svelte';
-
 
   export let element = {};
   export let modeler;
@@ -42,7 +42,8 @@
     </div>
 
     <div class="properties">
-      <InputOutputVariables {element} />
+      <InputVariables {element} />
+      <OutputVariables {element} />
       <ProcessInputVariables {element} {modeler} />
     </div>
   </div>
