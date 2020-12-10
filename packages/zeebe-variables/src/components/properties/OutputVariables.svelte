@@ -10,7 +10,8 @@
 
   import {
     createDataOutputAssociation,
-    getDataOutputAssociations
+    getDataOutputAssociations,
+    removeDataOutputAssociation
   } from '../../utils/DataInputOutputHelper';
 
   import OutputVariableItem from './OutputVariableItem.svelte';
@@ -67,6 +68,24 @@
     // dirty stuff :-(
     updateVariables();
   };
+
+  const handleDeleteVariable = (variable) => {
+    const modeling = modeler.get('modeling');
+
+    const businessObject = getBusinessObject(element);
+
+    const dataOutputAssociations = removeDataOutputAssociation(businessObject, variable);
+
+    modeling.updateModdleProperties(
+      element,
+      businessObject,
+      {
+        dataOutputAssociations
+      }
+    );
+
+    updateVariables();
+  };
   
   export let element = {};
   export let modeler;
@@ -81,6 +100,7 @@
     <OutputVariableItem 
       {variable} 
       onUpdateProperties={handleUpdateProperties}
+      onDeleteVariable={handleDeleteVariable}
     />
     {:else}
       <p class="entry entry-description">No variables defined.</p>

@@ -135,7 +135,7 @@ button:focus {
 }
 
 #properties .action-button.delete:before {
-  content: "x";
+  content: "×";
 }
 
 .djs-palette.two-column.open {

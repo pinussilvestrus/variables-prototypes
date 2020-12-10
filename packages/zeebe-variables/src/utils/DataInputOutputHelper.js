@@ -165,6 +165,14 @@ export function createDataOutputAssociation(bpmnFactory) {
   return outputAssociation;
 }
 
+export function removeDataOutputAssociation(element, association) {
+  const outputAssociations = getDataOutputAssociations(element);
+
+  collectionRemove(outputAssociations, association);
+
+  return outputAssociations;
+}
+
 /**
 * Create and return bpmn:DataInputAssociation with a simple bpmn:Assignment.
 *

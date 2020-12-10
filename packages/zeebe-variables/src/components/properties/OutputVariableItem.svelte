@@ -45,8 +45,13 @@
     });
   };
 
+  const deleteVariable = () => {
+    onDeleteVariable(variable);
+  };
+
   export let variable;
   export let onUpdateProperties = noop;
+  export let onDeleteVariable = noop;
 
 </script>
 
@@ -56,6 +61,8 @@
     <p class="item-description">{headerDescription}</p>
   </div>
   <div class="item-details">
+    <button class="action-button delete" on:click={deleteVariable}></button>
+    
     <label for="id">Process Variable Name</label>
     <input 
       id="name" 
