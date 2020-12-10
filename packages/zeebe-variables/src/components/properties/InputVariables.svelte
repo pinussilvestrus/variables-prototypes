@@ -48,7 +48,7 @@
       element,
       businessObject,
       {
-        datainputAssociations: inputAssociations
+        dataInputAssociations: inputAssociations
       }
     );
 
