@@ -116,7 +116,7 @@
         }
 
         strong {
-          color: #4d90ff
+          color: #4d90ff;
         }
       }
     }

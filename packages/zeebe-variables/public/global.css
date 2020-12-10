@@ -151,7 +151,7 @@ button:focus {
   display: inline-block;
   vertical-align: middle;
   color: #666666;
-  margin-bottom: 3px;
+  margin: 3px 0;
 }
 
 #properties input, textarea {
@@ -159,6 +159,7 @@ button:focus {
   border: 1px solid #cccccc;
   vertical-align: middle;
   width: 100%;
+  margin-bottom: 7px !important;
 }
 
 .item {
