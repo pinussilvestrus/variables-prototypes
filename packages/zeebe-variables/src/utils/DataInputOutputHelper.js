@@ -36,10 +36,16 @@ export function getDataInputAssociations(element) {
   return element.get('dataInputAssociations');
 }
 
-export function getVariableName(dataOutputAssociation) {
-  const assignment = dataOutputAssociation.get('assignment')[0];
+export function getVariableName(dataAssociation) {
+  const assignment = dataAssociation.get('assignment')[0];
 
   return assignment && assignment.get('to').get('body');
+}
+
+export function getVariableAssignmentValue(dataAssociation) {
+  const assignment = dataAssociation.get('assignment')[0];
+
+  return assignment && assignment.get('from').get('body');
 }
 
 /**

@@ -43,6 +43,18 @@
 
         return result += displayName + separator;
       }, '');
+
+      variable.usedInDisplay = reduce(variable.usedIn, (result, u, idx) => {
+        let separator = ', ';
+
+        if (idx === variable.usedIn.length - 1) {
+          separator = '';
+        }
+
+        const displayName = u.name || u.id;
+
+        return result += displayName + separator;
+      }, '');
     });
   };
 
@@ -156,7 +168,7 @@
                 <tr>
                   <td>{variable.name}</td>
                   <td>{variable.createdInDisplay}</td>
-                  <td>{variable.usage}</td>
+                  <td>{variable.usedInDisplay}</td>
                 </tr>
               {/each}
             </table>
