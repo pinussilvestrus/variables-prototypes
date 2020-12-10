@@ -2,6 +2,10 @@ import {
   forEach
 } from 'min-dash';
 
+import {
+  is
+} from 'bpmn-js/lib/util/ModelUtil';
+
 const DEFAULT_OFFSET = {
   y: -10,
   x: -10
@@ -41,6 +45,16 @@ export default class VariableVisualization {
       position,
       html: '<div class="variable-overlay">' + variableName + '</div>'
     });
+  }
+
+  cleanup() {
+    const overlays = this._overlays;
+
+    forEach(this._addedOverlays, (o) => {
+      overlays.remove(o);
+    });
+
+    this._addedOverlays = [];
   }
 
   // todo(pinussilvestrus): what multiple variables below?
@@ -84,6 +98,10 @@ VariableVisualization.$inject = [ 'overlays' ];
 // helper ////////////////
 
 function getBounds(element) {
+  if (is(element, 'bpmn:Process')) {
+    return { width: 0, height: 0 };
+  }
+
   return element.di && element.di.get('bounds');
 }
 

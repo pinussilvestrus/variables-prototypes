@@ -81,6 +81,11 @@
     variableVisualization.highlightVariable(variable);
   };
 
+  const handleVariableLeave = (event) => {
+    const variableVisualization = modeler.get('variableVisualization');
+    variableVisualization.cleanup();
+  };
+
   $: {
     modeler && updateVariables();
   }
@@ -188,7 +193,10 @@
                 <th class="usedIn">Used In</th>
               </tr>
               {#each variables as variable}
-                <tr data-name="{variable.name}" on:mouseenter={handleVariableHover}>
+                <tr 
+                  data-name="{variable.name}" 
+                  on:mouseenter={handleVariableHover}
+                  on:mouseleave={handleVariableLeave} >
                   <td>{variable.name}</td>
                   <td>{variable.createdInDisplay}</td>
                   <td>{variable.usedInDisplay}</td>
