@@ -57,8 +57,13 @@
     return documentation[0].text;
   };
 
+  const deleteProcessInput = () => {
+    onDeleteProcessInput(processInput);
+  };
+
   export let processInput;
   export let onUpdateProperties = noop;
+  export let onDeleteProcessInput = noop;
   export let modeler;
 
 </script>
@@ -69,6 +74,8 @@
     <p class="item-description">{headerDescription}</p>
   </div>
   <div class="item-details">
+    <button class="action-button delete" on:click={deleteProcessInput}></button>
+
     <label for="id">Process Variable Name</label>
     <input 
       id="id" 
@@ -82,5 +89,6 @@
       autocomplete="off" 
       value={getDocumentation()}
       on:change={handleDescriptionChange} />
+
   </div>
 </div>

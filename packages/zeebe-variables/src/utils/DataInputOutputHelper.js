@@ -1,5 +1,6 @@
 import {
-  add as collectionAdd
+  add as collectionAdd,
+  remove as collectionRemove
 } from 'diagram-js/lib/util/Collections';
 
 import {
@@ -120,6 +121,18 @@ export function createDataInput(element, bpmnFactory) {
     dataInput,
     ioSpecification
   };
+}
+
+// todo(pinussilvestrus): do full cleanup
+export function removeDataInput(element, dataInput) {
+  const ioSpecification = getIOSpeficiation(element);
+
+  const inputSet = ioSpecification.get('inputSets')[0];
+
+  collectionRemove(inputSet.get('dataInputRefs'), dataInput);
+  collectionRemove(ioSpecification.get('dataInputs'), dataInput);
+
+  return ioSpecification;
 }
 
 /**

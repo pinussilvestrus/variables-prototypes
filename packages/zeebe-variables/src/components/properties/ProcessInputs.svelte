@@ -6,7 +6,8 @@
 
   import {
     createDataInput,
-    getDataInputs
+    getDataInputs,
+    removeDataInput
   } from '../../utils/DataInputOutputHelper';
 
   import ProcessInputItem from './ProcessInputItem.svelte';
@@ -62,6 +63,22 @@
     updateVariables();
   };
 
+  const handleDeleteProcessInput = (dataInput) => {
+    const modeling = modeler.get('modeling');
+
+    const businessObject = getBusinessObject(element);
+
+    const ioSpecification = removeDataInput(businessObject, dataInput);
+
+    modeling.updateModdleProperties(
+      element,
+      businessObject,
+      {
+        ioSpecification
+      }
+    );
+  };
+
   export let element = {};
   export let modeler;
 </script>
@@ -75,6 +92,7 @@
       <ProcessInputItem 
         processInput={variable} 
         onUpdateProperties={handleUpdateProperties}
+        onDeleteProcessInput={handleDeleteProcessInput}
         {modeler}
       />
     {:else}
