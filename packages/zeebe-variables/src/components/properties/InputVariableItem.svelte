@@ -44,7 +44,6 @@
   let assignmentValue;
   let offDescription;
   let assignmentIsToggled;
-
   $: {
     if (variable) {
       headerDescription = '';

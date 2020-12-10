@@ -1,12 +1,10 @@
 <script>
   const noop = () => {};
 
-  // notify parent component when check has checked
-  $: {
+  const handleChange = (event) => {
+    checked = event.target.checked;
     onCheck(checked);
-  }
-
-  // exports //////////
+  };
 
   export let checked = false;
   export let offLabel = 'Off';
@@ -82,7 +80,7 @@
 
 <div class="switch">
   <label class="switcher">
-      <input type="checkbox" bind:checked />
+      <input type="checkbox" {checked} on:change={handleChange} />
       <span class="slider" />
   </label>
     
