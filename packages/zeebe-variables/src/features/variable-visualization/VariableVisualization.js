@@ -38,15 +38,6 @@ export default class VariableVisualization {
 
   }
 
-  addOverlay(elementId, variableName, position) {
-    const overlays = this._overlays;
-
-    return overlays.add(elementId, {
-      position,
-      html: '<div class="variable-overlay">' + variableName + '</div>'
-    });
-  }
-
   cleanup() {
     const overlays = this._overlays;
 
@@ -59,23 +50,37 @@ export default class VariableVisualization {
 
   // todo(pinussilvestrus): what multiple variables below?
   addOutput(variableName, element) {
+    const overlays = this._overlays;
+
     const {
       id: elementId
     } = element;
 
-    const {
-      width,
-      height
-    } = getBounds(element);
+    let position;
 
-    const position = getOutputPosition(width, height);
+    // todo(pinussilvestrus): place process inputs on start event?
+    if (is(element, 'bpmn:Process')) {
+      position = { top: 5, left: 5 };
+    } else {
+      const {
+        width,
+        height
+      } = getBounds(element);
 
-    const added = this.addOverlay(elementId, variableName, position);
+      position = getOutputPosition(width, height);
+    }
+
+    const added = overlays.add(elementId, {
+      position,
+      html: '<div class="variable-overlay created">' + variableName + '</div>'
+    });
 
     this._addedOverlays.push(added);
   }
 
   addInput(variableName, element) {
+    const overlays = this._overlays;
+
     const {
       id: elementId
     } = element;
@@ -86,7 +91,10 @@ export default class VariableVisualization {
 
     const position = getInputPosition(variableName, height);
 
-    const added = this.addOverlay(elementId, variableName, position);
+    const added = overlays.add(elementId, {
+      position,
+      html: '<div class="variable-overlay used">' + variableName + '</div>'
+    });
 
     this._addedOverlays.push(added);
   }
@@ -98,10 +106,6 @@ VariableVisualization.$inject = [ 'overlays' ];
 // helper ////////////////
 
 function getBounds(element) {
-  if (is(element, 'bpmn:Process')) {
-    return { width: 0, height: 0 };
-  }
-
   return element.di && element.di.get('bounds');
 }
 
