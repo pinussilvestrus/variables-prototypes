@@ -195,6 +195,14 @@ export function createDataInputAssociation(bpmnFactory) {
   return inputAssociation;
 }
 
+export function removeDataInputAssociation(element, association) {
+  const inputAssociations = getDataInputAssociations(element);
+
+  collectionRemove(inputAssociations, association);
+
+  return inputAssociations;
+}
+
 
 // helper
 

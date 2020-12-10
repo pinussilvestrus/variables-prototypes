@@ -10,7 +10,8 @@
 
   import {
     createDataInputAssociation,
-    getDataInputAssociations
+    getDataInputAssociations,
+    removeDataInputAssociation
   } from '../../utils/DataInputOutputHelper';
 
   import InputVariableItem from './InputVariableItem.svelte';
@@ -55,6 +56,22 @@
     updateVariables();
   };
 
+  const handleDeleteVariable = (variable) => {
+    const modeling = modeler.get('modeling');
+
+    const businessObject = getBusinessObject(element);
+
+    const dataInputAssociations = removeDataInputAssociation(businessObject, variable);
+
+    modeling.updateModdleProperties(
+      element,
+      businessObject,
+      {
+        dataInputAssociations
+      }
+    );
+  };
+
   const handleUpdateProperties = (dataInputAssociation, updates) => {
     const modeling = modeler.get('modeling');
 
@@ -81,6 +98,7 @@
       <InputVariableItem 
         {variable} 
         {modeler}
+        onDeleteVariable={handleDeleteVariable}
         onUpdateProperties={handleUpdateProperties}
       />
     {:else}

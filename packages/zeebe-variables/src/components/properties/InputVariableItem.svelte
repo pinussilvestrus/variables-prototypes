@@ -74,8 +74,13 @@
     });
   };
 
+  const deleteVariable = () => {
+    onDeleteVariable(variable);
+  };
+
   export let variable;
   export let onUpdateProperties = noop;
+  export let onDeleteVariable = noop;
   export let modeler;
 
 </script>
@@ -86,6 +91,8 @@
     <p class="item-description">{headerDescription}</p>
   </div>
   <div class="item-details">
+    <button class="action-button delete" on:click={deleteVariable}></button>
+
     <label for="id">Local Variable Name</label>
     <AutocompleteInput 
       id="name"
