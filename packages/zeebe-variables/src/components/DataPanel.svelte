@@ -5,8 +5,11 @@
 
   import {
     forEach,
-    reduce
+    reduce,
+    find
   } from 'min-dash';
+
+  import dom from 'domtastic';
 
   let activeTab = 'variables';
   let variables = [];
@@ -56,6 +59,26 @@
         return result += displayName + separator;
       }, '');
     });
+  };
+
+  const handleVariableHover = (event) => {
+    const variableVisualization = modeler.get('variableVisualization');
+
+    const node = dom(event.target);
+
+    const row = node.closest('tr');
+
+    const variableName = row.attr('data-name');
+
+    if (!variableName) {
+      return;
+    }
+
+    const variable = find(variables, (v) => {
+      return v.name === variableName;
+    });
+
+    variableVisualization.highlightVariable(variable);
   };
 
   $: {
@@ -165,7 +188,7 @@
                 <th class="usedIn">Used In</th>
               </tr>
               {#each variables as variable}
-                <tr>
+                <tr data-name="{variable.name}" on:mouseenter={handleVariableHover}>
                   <td>{variable.name}</td>
                   <td>{variable.createdInDisplay}</td>
                   <td>{variable.usedInDisplay}</td>

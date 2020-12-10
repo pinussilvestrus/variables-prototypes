@@ -9,6 +9,8 @@
 
   import VariableStore from '../features/variable-store';
 
+  import VariableVisualization from '../features/variable-visualization';
+
 
   import 'bpmn-js/dist/assets/diagram-js.css';
 
@@ -51,7 +53,8 @@
       additionalModules: [
         ZeebeModelerExtensions,
         VariableStore,
-        CustomBehaviors
+        CustomBehaviors,
+        VariableVisualization
       ]
     });
 
