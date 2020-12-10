@@ -2,6 +2,16 @@
   import dom from 'domtastic';
 
   import {
+    map
+  } from 'min-dash';
+
+  import {
+    getBusinessObject
+  } from 'bpmn-js/lib/util/ModelUtil';
+
+  import AutocompleteInput from '../AutocompleteInput.svelte';
+
+  import {
     getVariableName
   } from '../../utils/DataInputOutputHelper';
 
@@ -9,6 +19,25 @@
 
   let headerDescription;
   let variableName;
+
+  // todo(pinussilvestrus): get via variable store
+  let availableOptions = [];
+  $: {
+    if (modeler) {
+      const variableStore = modeler.get('variableStore');
+
+      const canvas = modeler.get('canvas');
+
+      const rootElement = canvas.getRootElement();
+
+      const businessObject = getBusinessObject(rootElement);
+
+      const variables = variableStore.collectVariables(businessObject);
+
+      // todo(pinussilvestrus): exclude own variables
+      availableOptions = map(variables, (v) => v.name);
+    }
+  }
 
   $: {
     if (variable) {
@@ -47,6 +76,7 @@
 
   export let variable;
   export let onUpdateProperties = noop;
+  export let modeler;
 
 </script>
 
@@ -57,10 +87,11 @@
   </div>
   <div class="item-details">
     <label for="id">Local Variable Name</label>
-    <input 
-      id="name" 
-      autocomplete="off" 
-      value={variableName} 
-      on:change={handleNameChange} />
+    <AutocompleteInput 
+      id="name"
+      value={variableName}
+      items={availableOptions}
+      onChange={handleNameChange}
+    />
   </div>
 </div>

@@ -80,6 +80,7 @@
     {#each variables as variable}
       <InputVariableItem 
         {variable} 
+        {modeler}
         onUpdateProperties={handleUpdateProperties}
       />
     {:else}
