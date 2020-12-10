@@ -32,6 +32,10 @@ export function getDataOutputAssociations(element) {
   return element.get('dataOutputAssociations');
 }
 
+export function getDataInputAssociations(element) {
+  return element.get('dataInputAssociations');
+}
+
 export function getVariableName(dataOutputAssociation) {
   const assignment = dataOutputAssociation.get('assignment')[0];
 
@@ -140,6 +144,36 @@ export function createDataOutputAssociation(bpmnFactory) {
   collectionAdd(outputAssociation.get('assignment'), assignment);
 
   return outputAssociation;
+}
+
+/**
+* Create and return bpmn:DataInputAssociation with a simple bpmn:Assignment.
+*
+* @param {BpmnFactory} bpmnFactory
+*
+* @returns {ModdleElement}
+*/
+export function createDataInputAssociation(bpmnFactory) {
+  const inputAssociation = bpmnFactory.create('bpmn:DataInputAssociation');
+
+  const variableId = 'Input_' + generateId(5);
+
+  const from = bpmnFactory.create('bpmn:Expression', {
+    body: '= ' + variableId
+  });
+
+  const to = bpmnFactory.create('bpmn:Expression', {
+    body: variableId
+  });
+
+  const assignment = bpmnFactory.create('bpmn:Assignment', {
+    from,
+    to
+  });
+
+  collectionAdd(inputAssociation.get('assignment'), assignment);
+
+  return inputAssociation;
 }
 
 
