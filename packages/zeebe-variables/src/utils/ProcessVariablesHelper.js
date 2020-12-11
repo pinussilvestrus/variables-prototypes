@@ -1,4 +1,17 @@
-import { find, findIndex, forEach, isArray } from 'min-dash';
+import {
+  find,
+  findIndex,
+  forEach,
+  isArray
+} from 'min-dash';
+
+import {
+  is
+} from 'bpmn-js/lib/util/ModelUtil';
+
+import {
+  getDataInputs
+} from './DataInputOutputHelper';
 
 /**
  * Get all parent elements for a given element.
@@ -157,9 +170,33 @@ export function createProcessVariable(name, scope, createdIn) {
   };
 }
 
+/**
+ * Set parent container if it defines it's own scope for
+ * the variable, so when it defines an input for it.
+ *
+ * Otherwise returns the default global scope.
+ */
+export function getScope(element, globalScope, variableName) {
+  const parents = getParents(element);
+
+  const scopedParent = find(parents, function(parent) {
+    return (
+      is(parent, 'bpmn:SubProcess') && !!findDataInput(parent, variableName)
+    );
+  });
+
+  return scopedParent ? scopedParent : globalScope;
+}
+
 
 // helpers ////////////////////
 
 function combineArrays(a, b) {
   return a.concat(b);
+}
+
+function findDataInput(element, name) {
+  const dataInputs = getDataInputs(element);
+
+  return find(dataInputs, (d) => d.name === name);
 }

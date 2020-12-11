@@ -20,6 +20,10 @@ import {
   getDataObjects
 } from '../../utils/DataInputOutputHelper';
 
+import {
+  getScope
+} from '../../utils/ProcessVariablesHelper';
+
 /**
  * Handle data objects coming from data output associations
  */
@@ -42,6 +46,7 @@ export default class OutputVariableBehavior extends CommandInterceptor {
       } = event;
 
       const {
+        element,
         properties
       } = context;
 
@@ -53,7 +58,7 @@ export default class OutputVariableBehavior extends CommandInterceptor {
         return;
       }
 
-      self.createDataObjectsIfNonExisting(dataOutputAssociations);
+      self.createDataObjectsIfNonExisting(element, dataOutputAssociations);
     });
 
     // handle variable updates
@@ -63,6 +68,7 @@ export default class OutputVariableBehavior extends CommandInterceptor {
       } = event;
 
       const {
+        element,
         moddleElement
       } = context;
 
@@ -70,7 +76,7 @@ export default class OutputVariableBehavior extends CommandInterceptor {
         return;
       }
 
-      self.createDataObjectsIfNonExisting([ moddleElement ]);
+      self.createDataObjectsIfNonExisting(element, [ moddleElement ]);
     });
 
     // cleanup
@@ -79,39 +85,42 @@ export default class OutputVariableBehavior extends CommandInterceptor {
     });
   }
 
-  createDataObjectsIfNonExisting(dataOutputAssociations) {
+  createDataObjectsIfNonExisting(element, dataOutputAssociations) {
     const canvas = this._canvas;
 
     const bpmnFactory = this._bpmnFactory;
+
+    const elementBo = getBusinessObject(element);
 
     const rootElement = canvas.getRootElement();
 
     const rootBo = getBusinessObject(rootElement);
 
-
-    // (1) get all data objects on parent scope
-    const dataObjects = getDataObjects(rootBo);
-
-    // (2) create missing data objects
     forEach(dataOutputAssociations, (output) => {
 
-      // (2.1) check whether data object exists
+      const variableName = getVariableName(output);
+
+      const scope = getScope(elementBo, rootBo, variableName);
+
+      // (1) get all data objects on parent scope
+      const dataObjects = getDataObjects(scope);
+
+      // (2) check whether data object exists
       const found = find(dataObjects, (d) => {
-        return d.id === getVariableName(output);
+        return d.id === variableName;
       });
 
       if (found) {
         return;
       }
 
-      // (2.2) create new data object
+      // (3) create new data object
       const dataObject = bpmnFactory.create('bpmn:DataObject', {
         id: getVariableName(output)
       });
 
-      // (2.3) add data object to correct scope
-      // todo(pinussilvestrus): is this always the right scope?
-      dataObject.$parent = rootBo;
+      // (4) add data object to correct scope
+      dataObject.$parent = scope;
 
       collectionAdd(rootBo.get('flowElements'), dataObject);
     });
