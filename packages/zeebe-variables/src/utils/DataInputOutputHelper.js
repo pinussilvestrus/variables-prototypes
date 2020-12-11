@@ -92,7 +92,9 @@ export function createDataInput(element, bpmnFactory) {
     collectionAdd(ioSpecification.get('outputSets'), outputSet);
   }
 
-  let dataInput = bpmnFactory.create('bpmn:DataInput');
+  let dataInput = bpmnFactory.create('bpmn:DataInput', {
+    name: 'Input_' + generateId(5)
+  });
 
   dataInput.$parent = ioSpecification;
 

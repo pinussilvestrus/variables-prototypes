@@ -21,13 +21,13 @@
     }
   };
 
-  const handleIdChange = (event) => {
+  const handleNameChange = (event) => {
     const target = event.target;
 
     const value = target.value;
 
     onUpdateProperties(processInput, {
-      id: value
+      name: value
     });
   };
 
@@ -70,18 +70,18 @@
 
 <div class="item process-input" id={`${processInput.id}`}>
   <div class="item-header input-header" on:click={handleTitleClick}>
-    <p class="item-name"><i class="chevron"></i>{processInput.id}</p>
+    <p class="item-name"><i class="chevron"></i>{processInput.name}</p>
     <p class="item-description">{headerDescription}</p>
   </div>
   <div class="item-details">
     <button class="action-button delete" on:click={deleteProcessInput}></button>
 
-    <label for="id">Process Variable Name</label>
+    <label for="name">Process Variable Name</label>
     <input 
-      id="id" 
+      id="name" 
       autocomplete="off" 
-      value={processInput.id} 
-      on:change={handleIdChange} />
+      value={processInput.name} 
+      on:change={handleNameChange} />
 
     <label for="description">Description</label>
     <textarea 
