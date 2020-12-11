@@ -199,6 +199,7 @@
       padding: 12px 7px;
 
       .action {
+        color: #404040;
         height: 20px;
         display: inline-block;
         vertical-align: middle;
