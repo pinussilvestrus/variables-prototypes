@@ -128,7 +128,7 @@
       <label for="">Variable Assignment</label>
       <Switch 
         onCheck="{handleAssignmentSwitch}" 
-        checked={assignmentIsOn()} 
+        checked={assignmentIsToggled} 
         onLabel="On"
         offLabel="Off"
         {offDescription}
