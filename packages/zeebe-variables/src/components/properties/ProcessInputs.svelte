@@ -80,6 +80,8 @@
         ioSpecification
       }
     );
+
+    updateVariables();
   };
 
   export let element = {};

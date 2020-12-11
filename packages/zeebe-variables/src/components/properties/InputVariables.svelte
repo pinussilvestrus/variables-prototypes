@@ -70,6 +70,8 @@
         dataInputAssociations
       }
     );
+
+    updateVariables();
   };
 
   const handleUpdateProperties = (dataInputAssociation, updates) => {
