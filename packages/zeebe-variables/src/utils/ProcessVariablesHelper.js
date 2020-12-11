@@ -6,8 +6,8 @@ import {
 } from 'min-dash';
 
 import {
-  is
-} from 'bpmn-js/lib/util/ModelUtil';
+  isAny
+} from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import {
   getDataInputs
@@ -181,7 +181,7 @@ export function getScope(element, globalScope, variableName) {
 
   const scopedParent = find(parents, function(parent) {
     return (
-      is(parent, 'bpmn:SubProcess') && !!findDataInput(parent, variableName)
+      isScopeContainer(element) && !!findDataInput(parent, variableName)
     );
   });
 
@@ -193,6 +193,13 @@ export function getScope(element, globalScope, variableName) {
 
 function combineArrays(a, b) {
   return a.concat(b);
+}
+
+function isScopeContainer(element) {
+  return isAny(element, [
+    'bpmn:SubProcess',
+    'bpmn:Process'
+  ]);
 }
 
 function findDataInput(element, name) {
