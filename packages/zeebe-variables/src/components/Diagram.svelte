@@ -44,6 +44,10 @@
     modeler.on('commandStack.changed', function(event) {
       onDiagramChanged(modeler);
     });
+
+    modeler.on('import.done', function(event) {
+      onDiagramLoaded(modeler);
+    });
   };
 
   onMount(async () => {
