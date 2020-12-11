@@ -4,7 +4,7 @@ Process Variable Management Prototypes.
 
 ## Demos
 
-...
+* [`zeebe-variables`](./packages/zeebe-variables)
 
 ## Setup
 
