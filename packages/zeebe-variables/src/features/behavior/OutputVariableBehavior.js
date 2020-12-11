@@ -107,7 +107,7 @@ export default class OutputVariableBehavior extends CommandInterceptor {
 
       // (2) check whether data object exists
       const found = find(dataObjects, (d) => {
-        return d.id === variableName;
+        return d.name === variableName;
       });
 
       if (found) {
@@ -116,7 +116,7 @@ export default class OutputVariableBehavior extends CommandInterceptor {
 
       // (3) create new data object
       const dataObject = bpmnFactory.create('bpmn:DataObject', {
-        id: getVariableName(output)
+        name: getVariableName(output)
       });
 
       // (4) add data object to correct scope
@@ -155,7 +155,7 @@ export default class OutputVariableBehavior extends CommandInterceptor {
       const dataObjects = getDataObjects(rootBo);
 
       const removingDataObjects = find(dataObjects, (d) => {
-        return d.id === v.name;
+        return d.name === v.name;
       });
 
       collectionRemove(rootBo.get('flowElements'), removingDataObjects);

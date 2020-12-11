@@ -38,7 +38,7 @@ export default class DataObjectProvider {
     forEach(dataObjects, (dataObject) => {
 
       // find creation origin --> data output association of a flow element
-      const createdIn = map(findDataOutputAssociation(elements, dataObject.id), (e) => {
+      const createdIn = map(findDataOutputAssociation(elements, dataObject.name), (e) => {
         return {
           createdIn: e,
           type: 'dataObject'
@@ -46,7 +46,7 @@ export default class DataObjectProvider {
       });
 
       const newVariable = createProcessVariable(
-        dataObject.id,
+        dataObject.name,
         containerElement,
         createdIn
       );
@@ -67,7 +67,7 @@ export default class DataObjectProvider {
  *
  * @returns {Array<ModdleElement>}
  */
-function findDataOutputAssociation(elements, dataObjectId) {
+function findDataOutputAssociation(elements, dataObjectName) {
   return filter(elements, (element) => {
     const dataOutputAssociations = getDataOutputAssociations(element);
 
@@ -76,7 +76,7 @@ function findDataOutputAssociation(elements, dataObjectId) {
     }
 
     return find(dataOutputAssociations, (association) => {
-      return dataObjectId === getVariableName(association);
+      return dataObjectName === getVariableName(association);
     });
   });
 }
