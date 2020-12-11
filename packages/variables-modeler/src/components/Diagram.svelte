@@ -3,7 +3,7 @@
 
   import BpmnModeler from 'bpmn-js/lib/Modeler';
 
-  import ZeebeModelerExtensions from '../features/zeebe-extensions';
+  import CustomExtensions from '../features/custom-extensions';
 
   import CustomBehaviors from '../features/behavior';
 
@@ -55,7 +55,7 @@
       container: '.diagram-container',
       keyboard: { bindTo: document },
       additionalModules: [
-        ZeebeModelerExtensions,
+        CustomExtensions,
         VariableStore,
         CustomBehaviors,
         VariableVisualization
