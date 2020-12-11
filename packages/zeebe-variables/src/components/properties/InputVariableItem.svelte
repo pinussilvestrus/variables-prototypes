@@ -148,7 +148,7 @@
   <div class="item-details">
     <button class="action-button delete" on:click={deleteVariable}></button>
 
-    <label for="id">Local Variable Name</label>
+    <label for="name">Local Variable Name</label>
     <AutocompleteInput 
       id="name"
       value={variableName}

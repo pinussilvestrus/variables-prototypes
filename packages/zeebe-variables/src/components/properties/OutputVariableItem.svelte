@@ -118,7 +118,7 @@
   <div class="item-details">
     <button class="action-button delete" on:click={deleteVariable}></button>
     
-    <label for="id">Process Variable Name</label>
+    <label for="name">Process Variable Name</label>
     <input 
       id="name" 
       autocomplete="off" 
