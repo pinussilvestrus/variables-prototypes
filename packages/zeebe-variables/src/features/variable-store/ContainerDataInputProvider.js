@@ -1,6 +1,6 @@
 import {
-  is
-} from 'bpmn-js/lib/util/ModelUtil';
+  isAny
+} from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import {
   forEach
@@ -19,31 +19,45 @@ export default class ProcessDataInputProvider {
 
   extractVariables(options) {
     const {
-      containerElement,
+      elements,
       processVariables
     } = options;
 
-    if (!is(containerElement, 'bpmn:Process')) {
-      return [];
-    }
+    forEach(elements, (element) => {
 
-    const dataInputs = getDataInputs(containerElement);
+      if (!isScopeContainer(element)) {
+        return [];
+      }
 
-    forEach(dataInputs, (dataInput) => {
-      const newVariable = createProcessVariable(
-        dataInput.name,
-        containerElement,
-        [
-          {
-            createdIn: containerElement,
-            type: 'processDataInput'
-          }
-        ]
-      );
+      const dataInputs = getDataInputs(element);
 
-      addVariableToList(processVariables, newVariable);
+      forEach(dataInputs, (dataInput) => {
+        const newVariable = createProcessVariable(
+          dataInput.name,
+          element,
+          [
+            {
+              createdIn: element,
+              type: 'processDataInput'
+            }
+          ]
+        );
+
+        addVariableToList(processVariables, newVariable);
+      });
+
     });
 
     return processVariables;
   }
+}
+
+
+// helper ////////////////
+
+function isScopeContainer(element) {
+  return isAny(element, [
+    'bpmn:SubProcess',
+    'bpmn:Process'
+  ]);
 }

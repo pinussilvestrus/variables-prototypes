@@ -122,7 +122,7 @@ export default class OutputVariableBehavior extends CommandInterceptor {
       // (4) add data object to correct scope
       dataObject.$parent = scope;
 
-      collectionAdd(rootBo.get('flowElements'), dataObject);
+      collectionAdd(scope.get('flowElements'), dataObject);
     });
   }
 

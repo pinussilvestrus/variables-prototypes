@@ -1,8 +1,11 @@
 <script>
   import {
-    getBusinessObject,
-    is
+    getBusinessObject
   } from 'bpmn-js/lib/util/ModelUtil';
+
+  import {
+    isAny
+  } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
   import {
     createDataInput,
@@ -16,7 +19,7 @@
   let variables = [];
 
   $: {
-    show = is(element, 'bpmn:Process');
+    show = isAny(element, [ 'bpmn:Process', 'bpmn:SubProcess' ]);
   }
 
   $: {

@@ -3,8 +3,8 @@ import {
 } from 'min-dash';
 
 import {
-  is
-} from 'bpmn-js/lib/util/ModelUtil';
+  isAny
+} from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 const DEFAULT_OFFSET = {
   y: -10,
@@ -59,7 +59,7 @@ export default class VariableVisualization {
     let position;
 
     // todo(pinussilvestrus): place process inputs on start event?
-    if (is(element, 'bpmn:Process')) {
+    if (isScopeContainer(element)) {
       position = { top: 5, left: 5 };
     } else {
       const {
@@ -121,4 +121,11 @@ function getInputPosition(variableName, height, offset = 0) {
     left:  variableName.length * -10,
     top: height + offset + DEFAULT_OFFSET.y
   };
+}
+
+function isScopeContainer(element) {
+  return isAny(element, [
+    'bpmn:SubProcess',
+    'bpmn:Process'
+  ]);
 }

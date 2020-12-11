@@ -180,8 +180,9 @@ export function getScope(element, globalScope, variableName) {
   const parents = getParents(element);
 
   const scopedParent = find(parents, function(parent) {
+
     return (
-      isScopeContainer(element) && !!findDataInput(parent, variableName)
+      isScopeContainer(parent) && !!findDataInput(parent, variableName)
     );
   });
 

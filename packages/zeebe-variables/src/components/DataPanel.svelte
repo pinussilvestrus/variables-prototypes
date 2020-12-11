@@ -6,16 +6,23 @@
   import {
     forEach,
     reduce,
-    find
+    find,
+    keys,
+    groupBy
   } from 'min-dash';
 
   import dom from 'domtastic';
 
   let activeTab = 'variables';
   let variables = [];
+  let multipleScopes = false;
 
   const setTab = (id) => {
     activeTab = id;
+  };
+
+  const groupByScope = (variables) => {
+    return groupBy(variables, 'scopeDisplay');
   };
 
   const updateVariables = () => {
@@ -58,7 +65,13 @@
 
         return result += displayName + separator;
       }, '');
+
+      variable.scopeDisplay = variable.scope.name || variable.scope.id;
     });
+
+    const byScopes = groupByScope(variables);
+
+    multipleScopes = keys(byScopes).length > 1;
   };
 
   const handleVariableHover = (event) => {
@@ -191,6 +204,9 @@
                 <th class="name">Name</th>
                 <th class="createdIn">Created In</th>
                 <th class="usedIn">Used In</th>
+                {#if multipleScopes}
+                  <th class="scope">Scope</th>
+                {/if}
               </tr>
               {#each variables as variable}
                 <tr 
@@ -200,6 +216,9 @@
                   <td>{variable.name}</td>
                   <td>{variable.createdInDisplay}</td>
                   <td>{variable.usedInDisplay}</td>
+                  {#if multipleScopes}
+                    <td>{variable.scopeDisplay}</td>
+                  {/if}
                 </tr>
               {/each}
             </table>

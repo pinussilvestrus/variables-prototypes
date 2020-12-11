@@ -1,6 +1,6 @@
 import {
-  is
-} from 'bpmn-js/lib/util/ModelUtil';
+  isAny
+} from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import {
   forEach,
@@ -17,41 +17,46 @@ import {
 
 import {
   createProcessVariable,
-  addVariableToList
+  addVariableToList,
+  selfAndAllFlowElements
 } from '../../utils/ProcessVariablesHelper';
 
 export default class DataObjectProvider {
 
   extractVariables(options) {
     const {
-      containerElement,
       elements,
       processVariables
     } = options;
 
-    if (!is(containerElement, 'bpmn:Process')) {
-      return [];
-    }
+    forEach(elements, (element) => {
 
-    const dataObjects = getDataObjects(containerElement);
+      if (!isScopeContainer(element)) {
+        return [];
+      }
 
-    forEach(dataObjects, (dataObject) => {
+      const dataObjects = getDataObjects(element);
 
-      // find creation origin --> data output association of a flow element
-      const createdIn = map(findDataOutputAssociation(elements, dataObject.name), (e) => {
-        return {
-          createdIn: e,
-          type: 'dataObject'
-        };
+      forEach(dataObjects, (dataObject) => {
+
+        const flowElements = selfAndAllFlowElements([ element ], false);
+
+        // find creation origin --> data output association of a flow element
+        const createdIn = map(findDataOutputAssociation(flowElements, dataObject.name), (e) => {
+          return {
+            createdIn: e,
+            type: 'dataObject'
+          };
+        });
+
+        const newVariable = createProcessVariable(
+          dataObject.name,
+          element,
+          createdIn
+        );
+
+        addVariableToList(processVariables, newVariable);
       });
-
-      const newVariable = createProcessVariable(
-        dataObject.name,
-        containerElement,
-        createdIn
-      );
-
-      addVariableToList(processVariables, newVariable);
     });
 
     return processVariables;
@@ -79,4 +84,11 @@ function findDataOutputAssociation(elements, dataObjectName) {
       return dataObjectName === getVariableName(association);
     });
   });
+}
+
+function isScopeContainer(element) {
+  return isAny(element, [
+    'bpmn:SubProcess',
+    'bpmn:Process'
+  ]);
 }

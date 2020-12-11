@@ -31,6 +31,7 @@
 
       const businessObject = getBusinessObject(rootElement);
 
+      // todo(pinussilvestrus): handle scopes
       const variables = variableStore.collectVariables(businessObject);
 
       // todo(pinussilvestrus): exclude own variables

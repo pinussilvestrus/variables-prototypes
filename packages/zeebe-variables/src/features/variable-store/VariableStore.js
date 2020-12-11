@@ -79,7 +79,7 @@ export default class VariableStore {
     let processVariables = [];
 
     // (1) extract all flow elements inside the container
-    const elements = selfAndAllFlowElements([containerElement], false);
+    const elements = selfAndAllFlowElements([ containerElement ], false);
 
     // (2) extract all variables from the extractors
     forEach(this._providers, (provider) => {
